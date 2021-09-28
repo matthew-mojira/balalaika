@@ -48,7 +48,6 @@ public class FileReaders implements Iterable<File> {
 		    }
 		      
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 			  
