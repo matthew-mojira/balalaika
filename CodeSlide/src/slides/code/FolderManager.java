@@ -1,4 +1,4 @@
-package core;
+package slides.code;
 
 import java.io.File;
 import java.io.FileReader;
@@ -25,7 +25,7 @@ public class FolderManager implements Iterable<String> {
 	 */
 	private List<File> files = new ArrayList<>();
 	
-	public static final String TEST_FOLDER = "src/core";
+	public static final String TEST_FOLDER = "src/slides/code";
 	
 //	public static void main(String[] args) {
 //		System.out.println(Arrays.toString(new File(TEST_FOLDER).listFiles()));

@@ -1,9 +1,14 @@
-package core;
+package slides.code;
 import javax.swing.JSplitPane;
+
+import slides.Slide;
+
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
 
 public class CodeExampleSlide extends Slide {
+	
+	public static final int TAB_SIZE = 4;
 	
 	public static final int JAVA = 131;
 	

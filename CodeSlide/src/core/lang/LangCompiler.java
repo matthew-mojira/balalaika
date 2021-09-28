@@ -1,4 +1,4 @@
-package lang;
+package core.lang;
 
 public interface LangCompiler {
 
