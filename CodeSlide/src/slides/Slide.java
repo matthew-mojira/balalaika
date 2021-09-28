@@ -12,6 +12,8 @@ public abstract class Slide extends JPanel {
 	
 	public static final Font HEADING_FONT = new Font("Tahoma", Font.BOLD, 42); 
 	public static final Font MONOSPACE_FONT = new Font("Monospaced", Font.PLAIN, 11);
+	public static final Color BACKGROUND_COLOR = new Color(30, 144, 255);
+	public static final Dimension DEFAULT_SIZE = new Dimension(1024, 768);
 	
 //	String title;
 	private JLabel titleLabel;
@@ -21,9 +23,9 @@ public abstract class Slide extends JPanel {
 	 */
 	public Slide(String title) {
 		setBorder(new EmptyBorder(10, 10, 10, 10));
-		setBackground(new Color(30, 144, 255));
-		setPreferredSize(new Dimension(800, 600));
-		setMinimumSize(new Dimension(800, 600));
+		setBackground(BACKGROUND_COLOR);
+		setPreferredSize(DEFAULT_SIZE);
+		setMinimumSize(DEFAULT_SIZE);
 		
 //		this.title = title;	
 		setLayout(new BorderLayout(0, 0));

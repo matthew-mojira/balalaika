@@ -16,10 +16,7 @@ import java.awt.event.ActionEvent;
 
 public class EditorWindow extends JPanel {
 
-	Map<String, JTextArea> tabs = new HashMap<>();
-	Map<JTextArea, UndoManager> lol = new HashMap<>();
-
-	// TODO: WRAP THE JTEXTAREAS WITH AN INNER CLASS
+	Map<String, EditorTab> tabs = new HashMap<>();
 
 	private JTabbedPane fileViewers;
 
@@ -35,14 +32,7 @@ public class EditorWindow extends JPanel {
 		JButton undo = new JButton("Undo");
 		undo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				JTextArea currentlyViewedTextArea = (JTextArea) ((JScrollPane) fileViewers.getSelectedComponent())
-						.getViewport().getView();
-				// WOW! so bad...
-				if (lol.get(currentlyViewedTextArea).canUndo()) {
-					lol.get(currentlyViewedTextArea).undo();
-				}
-
+				((EditorTab)fileViewers.getSelectedComponent()).undo();
 			}
 		});
 		panel.add(undo);
@@ -50,14 +40,7 @@ public class EditorWindow extends JPanel {
 		JButton redo = new JButton("Redo");
 		redo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				JTextArea currentlyViewedTextArea = (JTextArea) ((JScrollPane) fileViewers.getSelectedComponent())
-						.getViewport().getView();
-				// WOW! so bad...
-				if (lol.get(currentlyViewedTextArea).canRedo()) {
-					lol.get(currentlyViewedTextArea).redo();
-				}
-
+				((EditorTab)fileViewers.getSelectedComponent()).redo();
 			}
 		});
 		panel.add(redo);
@@ -68,35 +51,14 @@ public class EditorWindow extends JPanel {
 	 */
 	public boolean importTab(String title, String contents) {
 		if (tabs.containsKey(title)) { // already exists. modify tab
-			tabs.get(title).setText(contents);
+			tabs.get(title).setContents(contents);
 
 			return false;
 		} else { // does not already exist. create new tab
-//			System.out.printf("Tab %s not working. %s", title, contents);
-			/* make new tab, and make new text area to put inside */
-			JScrollPane newTab = new JScrollPane();
-			JTextArea textArea = new JTextArea();
-			textArea.setFont(Slide.MONOSPACE_FONT);
-			textArea.setTabSize(CodeExampleSlide.TAB_SIZE);
-			textArea.setText(contents);
-			textArea.setLineWrap(false);
-			textArea.setEditable(true);
-
-			/* put the new text area inside the new tab */
-			newTab.setViewportView(textArea);
-
-			/* make and put the line numbers */
-			TextLineNumber lineSide = new TextLineNumber(textArea);
-			newTab.setRowHeaderView(lineSide);
-
-			/* undo manager */
-			UndoManager undoManager = new UndoManager();
-			textArea.getDocument().addUndoableEditListener(undoManager);
-
-			lol.put(textArea, undoManager);
-
+			EditorTab newTab = new EditorTab(title, contents);
+			
 			/* put the title/text area into the map */
-			tabs.put(title, textArea);
+			tabs.put(title, newTab);
 
 			/* add the new tab to the tabbed pane (this object) */
 			fileViewers.addTab(title, newTab);
@@ -106,7 +68,7 @@ public class EditorWindow extends JPanel {
 	}
 
 	public String exportTab(String title) {
-		return tabs.get(title).getText();
+		return tabs.get(title).getContents();
 	}
 
 	public void importFiles(FolderManager files) {
@@ -118,52 +80,5 @@ public class EditorWindow extends JPanel {
 
 		this.repaint();
 	}
-	
-	private class Tab extends JScrollPane {
-		
-		JTextArea textArea;
-		String title;
-		UndoManager undoManager;
-		
-		private Tab(String title, String contents) {
-			
-			this.title = title; // do we need this? we should 
-			
-			textArea = new JTextArea();
-			textArea.setFont(Slide.MONOSPACE_FONT);
-			textArea.setTabSize(CodeExampleSlide.TAB_SIZE);
-			textArea.setText(contents);
-			textArea.setLineWrap(false);
-			textArea.setEditable(true);
-			
-			/* put the new text area inside the new tab */
-			this.setViewportView(textArea);
 
-			/* make and put the line numbers */
-			TextLineNumber lineSide = new TextLineNumber(textArea);
-			this.setRowHeaderView(lineSide);
-
-			/* undo manager */
-			undoManager = new UndoManager();
-			textArea.getDocument().addUndoableEditListener(undoManager);
-		}
-		
-		private boolean undo() {
-			if (undoManager.canUndo()) {
-				undoManager.undo();
-				return true;
-			} else {
-				return false;
-			}
-		}
-		
-		private boolean redo() {
-			if (undoManager.canRedo()) {
-				undoManager.redo();
-				return true;
-			} else {
-				return false;
-			}
-		}
-	}
 }
