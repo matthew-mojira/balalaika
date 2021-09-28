@@ -7,11 +7,11 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 
 public class Test {
 
 	private JFrame frame;
-	private JPanel panel;
 
 	/**
 	 * Launch the application.
@@ -53,9 +53,10 @@ public class Test {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		panel = new CodeExampleSlide("Title", null);
-		frame.getContentPane().add(panel, BorderLayout.CENTER);
+		JPanel panel = new CodeExampleSlide("Test slide", null); // null = folder
+		frame.getContentPane().add(panel);
 	}
 
 }
