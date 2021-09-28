@@ -118,4 +118,52 @@ public class EditorWindow extends JPanel {
 
 		this.repaint();
 	}
+	
+	private class Tab extends JScrollPane {
+		
+		JTextArea textArea;
+		String title;
+		UndoManager undoManager;
+		
+		private Tab(String title, String contents) {
+			
+			this.title = title; // do we need this? we should 
+			
+			textArea = new JTextArea();
+			textArea.setFont(Slide.MONOSPACE_FONT);
+			textArea.setTabSize(CodeExampleSlide.TAB_SIZE);
+			textArea.setText(contents);
+			textArea.setLineWrap(false);
+			textArea.setEditable(true);
+			
+			/* put the new text area inside the new tab */
+			this.setViewportView(textArea);
+
+			/* make and put the line numbers */
+			TextLineNumber lineSide = new TextLineNumber(textArea);
+			this.setRowHeaderView(lineSide);
+
+			/* undo manager */
+			undoManager = new UndoManager();
+			textArea.getDocument().addUndoableEditListener(undoManager);
+		}
+		
+		private boolean undo() {
+			if (undoManager.canUndo()) {
+				undoManager.undo();
+				return true;
+			} else {
+				return false;
+			}
+		}
+		
+		private boolean redo() {
+			if (undoManager.canRedo()) {
+				undoManager.redo();
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}
 }
