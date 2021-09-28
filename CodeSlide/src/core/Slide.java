@@ -10,7 +10,7 @@ import java.awt.Font;
 public abstract class Slide extends JPanel {
 	
 	protected static final Font HEADING_FONT = new Font("Tahoma", Font.BOLD, 42); 
-	protected static final Font MONOSPACE_FONT = new Font("Monospaced", Font.PLAIN, 16);
+	protected static final Font MONOSPACE_FONT = new Font("Monospaced", Font.PLAIN, 11);
 	
 //	String title;
 	private JLabel titleLabel;

@@ -86,7 +86,7 @@ public class FolderManager implements Iterable<String> {
 
 			@Override
 			public boolean hasNext() {
-				return i < limit;
+				return i + 1 < limit;
 			}
 
 			@Override

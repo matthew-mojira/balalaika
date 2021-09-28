@@ -20,14 +20,17 @@ public class EditorWindow extends JTabbedPane {
 			
 			return false;
 		} else { // does not already exist. create new tab
-			
+//			System.out.printf("Tab %s not working. %s", title, contents);
 			/* make new tab, and make new text area to put inside */
 			JScrollPane newTab = new JScrollPane();
-			JTextArea textArea = new JTextArea(contents);
-			textArea.setEditable(false);
+			JTextArea textArea = new JTextArea();
+			textArea.setFont(Slide.MONOSPACE_FONT);
+			textArea.setText(contents);
+			textArea.setLineWrap(false);
+			textArea.setEditable(true);
 			
 			/* put the new text area inside the new tab */
-			newTab.add(textArea);
+			newTab.setViewportView(textArea);
 			
 			/* put the title/text area into the map */
 			tabs.put(title, textArea);

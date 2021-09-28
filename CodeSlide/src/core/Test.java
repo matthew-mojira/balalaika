@@ -4,6 +4,8 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
+
 import java.awt.BorderLayout;
 
 public class Test {
@@ -15,6 +17,16 @@ public class Test {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		try {
+	            // Set cross-platform Java L&F (also called "Metal")
+	        UIManager.setLookAndFeel(
+	            UIManager.getCrossPlatformLookAndFeelClassName());
+	    } catch (Exception e) {
+	    	System.err.print("Die\n");
+	    	e.printStackTrace();
+	    }
+		
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
