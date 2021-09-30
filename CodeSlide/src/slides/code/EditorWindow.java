@@ -6,6 +6,10 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.undo.UndoManager;
 
+import core.lang.CompilerJava;
+import core.lang.LangCompiler;
+import core.lang.LangRunner;
+import core.lang.RunnerJava;
 import slides.Slide;
 
 import java.util.*;
@@ -44,6 +48,25 @@ public class EditorWindow extends JPanel {
 			}
 		});
 		panel.add(redo);
+		
+		/* TESTING! fun!!!*/
+		JButton testCompile = new JButton("Compile");
+		testCompile.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				LangCompiler x = new CompilerJava();
+				x.compile();
+			}
+		});
+		panel.add(testCompile);
+		
+		JButton testRun = new JButton("Run");
+		testRun.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				LangRunner x = new RunnerJava();
+				x.run();
+			}
+		});
+		panel.add(testRun);
 	}
 
 	/**

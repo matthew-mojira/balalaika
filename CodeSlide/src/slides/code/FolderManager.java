@@ -25,7 +25,7 @@ public class FolderManager implements Iterable<String> {
 	 */
 	private List<File> files = new ArrayList<>();
 	
-	public static final String TEST_FOLDER = "src/slides/code";
+	public static final String TEST_FOLDER = "src/slides/code/test";
 	
 //	public static void main(String[] args) {
 //		System.out.println(Arrays.toString(new File(TEST_FOLDER).listFiles()));
