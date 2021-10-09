@@ -53,6 +53,17 @@ public class EditorWindow extends JPanel {
 		JButton testCompile = new JButton("Compile");
 		testCompile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				/* save contents of everything to file */
+				/* this is not very good */
+				
+				String currentTabTitle = ((EditorTab)fileViewers.getSelectedComponent()).getTitle();
+				String currentTabContents = ((EditorTab)fileViewers.getSelectedComponent()).getContents();
+				
+				System.out.print(currentTabTitle);
+				System.out.print(currentTabContents);
+				
+				FolderManager.saveFile(currentTabTitle, currentTabContents);
+				
 				LangCompiler x = new CompilerJava();
 				x.compile();
 			}

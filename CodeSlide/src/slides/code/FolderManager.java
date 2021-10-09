@@ -1,8 +1,10 @@
 package slides.code;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -59,6 +61,20 @@ public class FolderManager implements Iterable<String> {
 		} catch (NullPointerException e) {
 			System.out.println("WWW");//TODO java bullshit
 		}
+	}
+	
+	public static void saveFile(String fileName, String fileContents) {
+		try {
+			PrintWriter out = new PrintWriter(TEST_FOLDER + "/" + fileName);
+			
+			out.print(fileContents);
+			
+			out.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		
 	}
 	
 	private String readFile(File file) {

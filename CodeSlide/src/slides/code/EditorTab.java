@@ -61,4 +61,8 @@ public class EditorTab extends JScrollPane {
 	protected String getContents() {
 		return textArea.getText();
 	}
+	
+	protected String getTitle() {
+		return title;
+	}
 }
